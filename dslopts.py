@@ -34,7 +34,7 @@
 # -----------------------------------------------------------------------------
 
 '''
-Damn Small Commandline Arguments/Options Parse and Retrieval Agent
+Damn Small Commandline Arguments Manager
 
 This is a KISS python module for parsing commandline arguments without defining
 any switches. One can use keywords, set default values in the same way as it is
