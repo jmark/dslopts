@@ -18,9 +18,9 @@ examples.
 
     mgr = dslopts.Manager()
 
-    mgr.add(name='sourcefile', desc='input file path',  type=pathlib.Path) # mandatory positional argument
-    mgr.add(name='sinkfile',   desc='output file path', type=pathlib.Path) # mandatory positional argument
-    mgr.add(name='nsamples',   desc='sampling count',   type=int, default=10) # optional positional/keyword argument
+    mgr.add(name='sourcefile', desc='input file path',  type=pathlib.Path) # positional arg.
+    mgr.add(name='sinkfile',   desc='output file path', type=pathlib.Path) # positional arg.
+    mgr.add(name='nsamples',   desc='sampling count',   type=int, default=10) # optional arg.
 
     args = mgr.parse() # returns a dictionary
 
