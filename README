@@ -1,0 +1,109 @@
+dslopts - Damn Small Commandline Arguments/Options Parse and Retrieval Agent
+
+This is a KISS python module for parsing commandline arguments without defining
+any switches. One can use keywords, set default values in the same way as it is
+done for Python function prototypes. Additionally a convenient way of
+constraining input data and enforcing types is provided. It builds a nice
+formmatted usage page automatically.
+
+It is highly encouraged to copy this module into your project and use it
+directly.
+
+For a working example execute this module directly or refer to the accompanied
+examples.
+
+* conventional:
+    import dslopts
+    import pathlib
+
+    mgr = dslopts.Manager()
+
+    mgr.add(name='sourcefile', desc='input file path',  type=pathlib.Path) # mandatory positional argument
+    mgr.add(name='sinkfile',   desc='output file path', type=pathlib.Path) # mandatory positional argument
+    mgr.add(name='nsamples',   desc='sampling count',   type=int, default=10) # optional positional/keyword argument
+
+    args = mgr.parse() # returns a dictionary
+
+    print(args['sourcefile'])
+    print(args['sinkfile'])
+    print(args['nsamples'] + 1)
+
+    # Following ways of calling this script are possible:
+    #
+    # ./example01.py infile outfile
+    # ./example01.py infile outfile 20
+    # ./example01.py infile outfile nsamples=20
+    # ./example01.py infile sinkfile=outfile nsamples=20
+    # ./example01.py sourcefile=infile sinkfile=outfile nsamples=20
+    #
+    # Following ways of calling this script will raise an error:
+    #
+    # ./example01.py infile
+    # ./example01.py infile outfile 20
+    # ./example01.py sourcefile=infile outfile 20
+    # ./example01.py infile sinkfile=outfile nsamples=20
+    # ./example01.py sinkfile=outfile nsamples=20
+    #
+    # The usage message can be triggered by:
+    # 
+    # ./example02.py ?
+    # ./example02.py help
+    # ./example02.py usage
+
+
+* with context manager:
+    import dslopts
+    import pathlib
+
+    def ExistingPath(arg):
+        pth = pathlib.Path(arg)
+        if not pth.exists():
+            raise OSError("'%s' does not exists!" % pth)
+        return pth
+
+    def ConstrainedInt(arg):
+        nr = int(arg)
+        if 1 <= nr <= 4:
+            return nr
+        raise ValueError("Method number must be within 0 and 4: '%d' given!")
+
+    appendix = """  Methods are:
+
+        1 -> method 1
+        2 -> method 2 
+        3 -> method 3 
+        4 -> method 4 
+    """
+
+    with dslopts.Manager(scope=globals(),appendix=appendix) as mgr:
+        mgr.add(name='srcfile' ,desc=' input file path' ,type=ExistingPath)
+        mgr.add(name='snkfile' ,desc='output file path' ,type=ExistingPath)
+        mgr.add(name='method'  ,desc='method nr: 1-4'   ,type=ConstrainedInt, default=3)
+
+    print(srcfile)
+    print(snkfile)
+    print("you asked for method: %d" % method)
+
+    # Following ways of calling this script are possible:
+    #
+    # ./example02.py infile outfile
+    # ./example02.py infile outfile 1
+    # ./example02.py infile outfile method=3
+    # ./example02.py infile snkfile=outfile method=4
+    # ./example02.py infile snkfile=outfile
+    # ./example02.py srcfile=infile snkfile=outfile method=2
+    #
+    # Following ways of calling this script will raise an error:
+    #
+    # ./example02.py outfile
+    # ./example02.py infile outfile 0
+    # ./example02.py infile outfile method=5
+    # ./example02.py infile snkfile=outfile 4
+    # ./example02.py srcfile=infile outfile method=2
+    # ./example02.py srcfile=infile outfile 2
+    #
+    # The usage message can be triggered by:
+    # 
+    # ./example02.py ?
+    # ./example02.py help
+    # ./example02.py usage

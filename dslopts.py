@@ -42,6 +42,9 @@ done for Python function prototypes. Additionally a convenient way of
 constraining input data and enforcing types is provided. It builds a nice
 formmatted usage page automatically.
 
+It is highly encouraged to copy this module into your project and use it
+directly.
+
 For a working example execute this module directly or refer to the accompanied
 examples.
 
@@ -148,7 +151,7 @@ class Manager:
     def __init__(self, argsdict=None, scope=None, appendix=''):
         """
             argsdict    -> fill given dictionary with parsed parameters
-            scope       -> install arguments as variables in given scope
+            scope       -> install arguments as first class variables in given scope
             appendix    -> add appendix to the end of the usage message
         """
         self.argn = list() # argument position
