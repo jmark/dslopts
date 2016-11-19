@@ -28,27 +28,38 @@ examples.
     print(args['sinkfile'])
     print(args['nsamples'] + 1)
 
-    # Following ways of calling this script are possible:
-    #
-    # ./example01.py infile outfile
-    # ./example01.py infile outfile 20
-    # ./example01.py infile outfile nsamples=20
-    # ./example01.py infile sinkfile=outfile nsamples=20
-    # ./example01.py sourcefile=infile sinkfile=outfile nsamples=20
-    #
-    # Following ways of calling this script will raise an error:
-    #
-    # ./example01.py infile
-    # ./example01.py infile outfile 20
-    # ./example01.py sourcefile=infile outfile 20
-    # ./example01.py infile sinkfile=outfile nsamples=20
-    # ./example01.py sinkfile=outfile nsamples=20
-    #
-    # The usage message can be triggered by:
-    # 
-    # ./example02.py ?
-    # ./example02.py help
-    # ./example02.py usage
+    Following ways of calling this script are possible:
+    
+    ./example01.py infile outfile
+    ./example01.py infile outfile 20
+    ./example01.py infile outfile nsamples=20
+    ./example01.py infile sinkfile=outfile nsamples=20
+    ./example01.py sourcefile=infile sinkfile=outfile nsamples=20
+    
+    Following ways of calling this script will raise an error:
+    
+    ./example01.py infile
+    ./example01.py infile outfile 20
+    ./example01.py sourcefile=infile outfile 20
+    ./example01.py infile sinkfile=outfile nsamples=20
+    ./example01.py sinkfile=outfile nsamples=20
+    
+    The usage message can be triggered by:
+    
+    ./example02.py ?
+    ./example02.py help
+    ./example02.py usage
+
+    usage: ./example01.py arg0 arg1 ... opt0=value0 opt1=value1 ... -- ... (ignored args)
+
+      * Either 'help', 'usage', 'what', 'how', '?' triggers this help message. For more
+        information try: 'pydoc dslopts'.
+
+           | name        | type  | default value  | description     
+      ---------------------------------------------------------------
+        1  | sourcefile  | Path  | None           | input file path 
+        2  | sinkfile    | Path  | None           | output file path
+        3  | nsamples    | int   | 10             | sampling count  
 
 
 * with context manager:
@@ -84,26 +95,45 @@ examples.
     print(snkfile)
     print("you asked for method: %d" % method)
 
-    # Following ways of calling this script are possible:
-    #
-    # ./example02.py infile outfile
-    # ./example02.py infile outfile 1
-    # ./example02.py infile outfile method=3
-    # ./example02.py infile snkfile=outfile method=4
-    # ./example02.py infile snkfile=outfile
-    # ./example02.py srcfile=infile snkfile=outfile method=2
-    #
-    # Following ways of calling this script will raise an error:
-    #
-    # ./example02.py outfile
-    # ./example02.py infile outfile 0
-    # ./example02.py infile outfile method=5
-    # ./example02.py infile snkfile=outfile 4
-    # ./example02.py srcfile=infile outfile method=2
-    # ./example02.py srcfile=infile outfile 2
-    #
-    # The usage message can be triggered by:
-    # 
-    # ./example02.py ?
-    # ./example02.py help
-    # ./example02.py usage
+    Following ways of calling this script are possible:
+    
+    ./example02.py infile outfile
+    ./example02.py infile outfile 1
+    ./example02.py infile outfile method=3
+    ./example02.py infile snkfile=outfile method=4
+    ./example02.py infile snkfile=outfile
+    ./example02.py srcfile=infile snkfile=outfile method=2
+    
+    Following ways of calling this script will raise an error:
+    
+    ./example02.py outfile
+    ./example02.py infile outfile 0
+    ./example02.py infile outfile method=5
+    ./example02.py infile snkfile=outfile 4
+    ./example02.py srcfile=infile outfile method=2
+    ./example02.py srcfile=infile outfile 2
+    
+    The usage message can be triggered by:
+    
+    ./example02.py ?
+    ./example02.py help
+    ./example02.py usage
+
+    usage: ./example02.py arg0 arg1 ... opt0=value0 opt1=value1 ... -- ... (ignored args)
+
+      * Either 'help', 'usage', 'what', 'how', '?' triggers this help message. For more
+        information try: 'pydoc dslopts'.
+
+           | name     | type            | default value  | description     
+      ----------------------------------------------------------------------
+        1  | srcfile  | ExistingPath    | None           |  input file path
+        2  | snkfile  | ExistingPath    | None           | output file path
+        3  | method   | ConstrainedInt  | 3              | method nr: 1-4  
+
+      Methods are:
+
+        1 -> method 1
+        2 -> method 2 
+        3 -> method 3 
+        4 -> method 4 
+
